@@ -2,22 +2,30 @@ import "./styles.css";
 import * as DataBusiness from "./data_business.js";
 import * as Utils from "./utils.js";
 
-DataBusiness.getCharactersID().then(data => {
-    console.log(data);
-})
 
-DataBusiness.getCharacters().then(data => {
-    const users = data;
-    const nodes = [];
-    for (let character of users) {
-        const node = Utils.createCharacterRow(character);
-        nodes.onclick = function () {
-            DataBusiness.getCharactersId(character).then(data2 => {
-                console.log(data2[0]);
-                Utils.showCharacter(data2[0]);
-            })
+
+document.getElementById("character").addEventListener("click", () => showCharacters())
+document.getElementById("location").addEventListener("click", () => showLocations())
+
+function showCharacters(){
+    DataBusiness.getCharacters().then(data => {
+        document.getElementById("root").innerHTML = "";
+        for (let character of data.results) {
+            var characterRow = Utils.createCharacterRow(character);
+            characterRow.onclick = function createID(){
+                DataBusiness.getCharactersID(character.id).then(data=> 
+                    Utils.showCharacter(data))};
+            document.getElementById("root").append(characterRow);
+            } 
+        });
+}
+
+function showLocations(){
+    DataBusiness.getLocations().then(data=>{
+        document.getElementById("root").innerHTML="";
+        for(let location of data.results){
+            var locationRow = Utils.createLocationRow(location);
+            document.getElementById("root").append(locationRow);
         }
-    }
-
-
-})
+    })
+}

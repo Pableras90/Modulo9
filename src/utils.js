@@ -3,7 +3,7 @@ const createCharacterRow = (character) => {
   
     const avatar = createAvatar(character);
     element.appendChild(avatar);
-  
+    
     const link = createRowText(character);
     element.appendChild(link);
   
@@ -11,20 +11,33 @@ const createCharacterRow = (character) => {
   
     return element;
   };
-  
+
+  const createLocationRow = (location) =>{
+    const element = document.createElement("div");
+    var id = location.id;
+    var name = location.name;
+    var dimension = location.dimension;
+    var type = location.type;
+
+   var title = document.createElement("h3");
+   title.append(id + ": " + name);
+   element.append(title);
+   element.append("Type: " + type + ". Dimension: " + dimension);
+    return element;
+  }
+
   const createAvatar = (character) => {
     const element = document.createElement("img");
     element.width = 150;
     element.className = "thumbnail";
     element.src = character.image;
-  
     return element;
   };
   
   const createRowText = (character) => {
     const element = document.createElement("span");
-    element.append(character.name);
-  
+    element.append(character.name);  
+    element.id = character.id;
     return element;
   };
   
@@ -53,5 +66,5 @@ const createCharacterRow = (character) => {
     return element;
   };
   
-  export { createCharacterRow, showCharacter };
+  export { createCharacterRow, showCharacter, createLocationRow };
   

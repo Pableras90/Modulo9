@@ -25,3 +25,10 @@ body {
     vertical-align: middle;
   }
   
+  button{
+    border-radius: 7px;
+    background-color: rgb(171, 247, 222);
+    margin-bottom: 5px;
+    min-height: 50px;
+    max-width: 20% ;
+  }
